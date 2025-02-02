@@ -1,5 +1,5 @@
 ___
-# DELETE THIS INSTRUCTIONS AND ADD A SHORT INTRODUCTION ABOUT YOUR PROJECT
+# AI-Knowledge-Management-NRENs
 ___
 
 ## Please refer the instructions in below URL:
