@@ -12,4 +12,4 @@ focus on managing institutional knowledge, training materials, and administrativ
 ## Get Started
 1. Clone this repository:  
    ```bash
-   git clone https://github.com/yourusername/ai-knowledge-system.git
+   git clone https://github.com/cepdnaclk/e19-4yp-AI-Powered-Knowledge-Management-System.git
