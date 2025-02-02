@@ -1,5 +1,5 @@
 ___
-# AI-Knowledge-Management-NRENs
+# AI-Powered Knowledge Management System
 ___
 
 ## Please refer the instructions in below URL:
