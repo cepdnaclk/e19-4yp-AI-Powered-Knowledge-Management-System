@@ -4,7 +4,7 @@ ___
 
 National Research and Education Networks (NRENs) play a crucial role in supporting academic and research communities 
 by providing advanced technological infrastructure and services. As these organizations grow in complexity, there is an 
-increasing need for efficient knowledge management systems to support their operations. This research aims to explore 
+increasing need for efficient knowledge management systems to support their operations. This research project aims to explore 
 the potential of AI-powered knowledge management systems in enhancing the operational efficiency of NRENs, with a 
 focus on managing institutional knowledge, training materials, and administrative guidelines.
 
