@@ -3,24 +3,24 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and title
-repository-name: eYY-4yp-project-template
-title:
+repository-name: e19-4yp-AI-Powered-Knowledge-Management-System
+title: AI powered knowledge management system
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# Project Title
+# AI Powered Knowledge Management System
 
 #### Team
 
-- eNumber, Name, [email](mailto:name@email.com)
-- eNumber, Name, [email](mailto:name@email.com)
-- eNumber, Name, [email](mailto:name@email.com)
+- E/19/004, R.B.ABEYSINGHE, [email](mailto:e19004@eng.pdn.ac.lk)
+- E/19/096, E.M.C.Y.B.EKANAYAKE, [email](mailto:e19096@eng.pdn.ac.lk)
+- E/19/100, E.P.S.G.ELLAWALA, [email](mailto:e19100@eng.pdn.ac.lk)
 
 #### Supervisors
 
-- Name, [email](mailto:name@eng.pdn.ac.lk)
-- Name, [email](mailto:name@eng.pdn.ac.lk)
+- Dr. Asitha Bandaranayake, [email](mailto:name@eng.pdn.ac.lk)
+- Prof Roshan Ragel, [email](mailto:name@eng.pdn.ac.lk)
 
 #### Table of content
 
@@ -35,12 +35,11 @@ title:
 
 ---
 
-<!-- 
+<!--
 DELETE THIS SAMPLE before publishing to GitHub Pages !!!
 This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/)
-![Sample Image](./images/sample.png) 
+![Sample Image](./images/sample.png)
 -->
-
 
 ## Abstract
 
@@ -55,6 +54,7 @@ This is a sample image, to show how to add images to your page. To learn more op
 ## Conclusion
 
 ## Publications
+
 [//]: # "Note: Uncomment each once you uploaded the files to the repository"
 
 <!-- 1. [Semester 7 report](./) -->
@@ -63,13 +63,12 @@ This is a sample image, to show how to add images to your page. To learn more op
 <!-- 4. [Semester 8 slides](./) -->
 <!-- 5. Author 1, Author 2 and Author 3 "Research paper title" (2021). [PDF](./). -->
 
-
 ## Links
 
-[//]: # ( NOTE: EDIT THIS LINKS WITH YOUR REPO DETAILS )
+[//]: # " NOTE: EDIT THIS LINKS WITH YOUR REPO DETAILS "
 
-- [Project Repository](https://github.com/cepdnaclk/repository-name)
-- [Project Page](https://cepdnaclk.github.io/repository-name)
+- [Project Repository](https://github.com/cepdnaclk/e19-4yp-AI-Powered-Knowledge-Management-System)
+- [Project Page](https://cepdnaclk.github.io/e19-4yp-AI-Powered-Knowledge-Management-System)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
