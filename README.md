@@ -20,7 +20,7 @@ This research project aims to explore the potential of AI-powered knowledge mana
 - **Focus Areas**: Institutional knowledge preservation, training material organization, administrative guideline accessibility
 - **Target Outcome**: Enhanced operational efficiency through intelligent information retrieval and management
 
-## 🏗️ Technical Architecture
+## Technical Architecture
 
 ### RAG (Retrieval-Augmented Generation) System
 
@@ -54,7 +54,7 @@ Our approach leverages RAG architecture to combine the benefits of large languag
 - **Prototype Development**: Created small-scale chatbots for concept validation
 - **Component Integration**: Successfully tested retrieval and generation workflows
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Language Models
 - **Primary Requirement**: GPT-3.5 Turbo or GPT-4
