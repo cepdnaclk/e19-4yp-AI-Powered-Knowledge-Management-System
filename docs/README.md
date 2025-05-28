@@ -19,8 +19,8 @@ title: AI powered knowledge management system
 
 #### Supervisors
 
-- Dr. Asitha Bandaranayake, [email](mailto:name@eng.pdn.ac.lk)
-- Prof Roshan Ragel, [email](mailto:name@eng.pdn.ac.lk)
+- Dr. Asitha Bandaranayake, [email](mailto:asithab@eng.pdn.ac.lk)
+- Prof Roshan Ragel, [email](mailto:roshanr@eng.pdn.ac.lk)
 
 #### Table of content
 
