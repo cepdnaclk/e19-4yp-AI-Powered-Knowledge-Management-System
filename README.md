@@ -75,7 +75,6 @@ Our approach leverages RAG architecture to combine the benefits of large languag
 ### Development Framework
 
 ```python
-# Example technology stack
 - Python 3.8+
 - LangChain for LLM orchestration
 - OpenAI API for language models
