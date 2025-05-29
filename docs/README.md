@@ -67,7 +67,7 @@ This research project aims to explore the potential of AI-powered knowledge mana
 
 Our approach leverages RAG architecture to combine the benefits of large language models with domain-specific knowledge retrieval:
 
-![ARG ARCHITECTURE](docs/images/arg_arch.png)
+![ARG ARCHITECTURE](images/arg_arch.png)
 
 #### Core Components
 
