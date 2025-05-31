@@ -83,9 +83,71 @@ Our approach leverages RAG architecture to combine the benefits of large languag
 - React/Next.js for frontend interface
 ```
 
-## Get Started
+## Setup Instructions
 
 1. Clone this repository:
    ```bash
    git clone https://github.com/cepdnaclk/e19-4yp-AI-Powered-Knowledge-Management-System.git
    ```
+
+### 1. Navigate to the Code Folder
+
+```bash
+cd code
+```
+
+### 2. Create Python Environment and Activate It
+
+**On Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Install Required Packages
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Create .env File with API Key
+
+Create a `.env` file in the project root directory:
+
+```bash
+echo. > .env
+```
+
+Edit the `.env` file and add your OpenAI API key:
+
+```
+OPENAI_API_KEY=sk-your-actual-api-key-here
+```
+
+### 5. Populate ChromaDB with PDFs
+
+Place your PDF files in the `data/` folder, then run:
+
+```bash
+python populate_database.py
+```
+
+**Optional:** Add more PDFs to the `data/` folder and run the command again to update the database.
+
+
+### 6. Query Your Documents
+
+Run queries against your document database:
+
+```bash
+python query_data.py "What is the main topic discussed in the documents?"
+```
+
+
+## Configuration
+
+### Models Used
+
+- **Embeddings:** `text-embedding-3-small` (cost-effective)
+- **Chat:** `gpt-3.5-turbo` (good balance of cost and performance)
+
