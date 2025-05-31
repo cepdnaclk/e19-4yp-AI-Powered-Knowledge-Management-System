@@ -1,8 +1,14 @@
 import argparse
-from langchain_community.vectorstores import Chroma
+from langchain.vectorstores.chroma import Chroma
 from langchain.prompts import ChatPromptTemplate
-from langchain_community.llms import HuggingFacePipeline
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+import os
+
 from get_embedding_function import get_embedding_function
+
+# Load environment variables
+load_dotenv()
 
 CHROMA_PATH = "chroma"
 
@@ -16,6 +22,7 @@ Answer the question based only on the following context:
 Answer the question based on the above context: {question}
 """
 
+
 def main():
     # Create CLI.
     parser = argparse.ArgumentParser()
@@ -23,6 +30,7 @@ def main():
     args = parser.parse_args()
     query_text = args.query_text
     query_rag(query_text)
+
 
 def query_rag(query_text: str):
     # Prepare the DB.
@@ -33,38 +41,47 @@ def query_rag(query_text: str):
     results = db.similarity_search_with_score(query_text, k=5)
     
     if not results:
-        print("No relevant documents found.")
-        return "No relevant documents found."
+        print("No relevant documents found in the database.")
+        return "No relevant information found."
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query_text)
     
-    # Uncomment this line if you want to see the prompt being sent to the model
-    # print("Prompt being sent to model:")
+    # Uncomment the line below to see the full prompt being sent
+    # print("DEBUG - Prompt being sent:")
     # print(prompt)
-    # print("="*50)
+    # print("\n" + "="*50 + "\n")
 
+    # Initialize OpenAI Chat model
+    model = ChatOpenAI(
+        model="gpt-3.5-turbo",  # or "gpt-4" for better quality but higher cost
+        temperature=0,  # Lower temperature for more consistent responses
+        openai_api_key=os.getenv("OPENAI_API_KEY")
+    )
+    
     try:
-        # Option 1: Use HuggingFace Pipeline (completely local, no API key needed)
-        model = HuggingFacePipeline.from_model_id(
-            model_id="microsoft/DialoGPT-small",  # Small model for faster loading
-            task="text-generation",
-            model_kwargs={"temperature": 0.7, "max_length": 512}
-        )
-        
         response_text = model.invoke(prompt)
         
+        # Extract the content from the response
+        if hasattr(response_text, 'content'):
+            response_content = response_text.content
+        else:
+            response_content = str(response_text)
+        
         sources = [doc.metadata.get("id", None) for doc, _score in results]
-        formatted_response = f"Response: {response_text}\nSources: {sources}"
+        
+        # Format and display the response
+        formatted_response = f"Response: {response_content}\n\nSources: {sources}"
         print(formatted_response)
-        return response_text
+        
+        return response_content
         
     except Exception as e:
-        print(f"Error with HuggingFace model: {e}")
-        print("Installing required packages...")
-        print("Run: pip install transformers torch")
-        return None
+        error_msg = f"Error querying the model: {str(e)}"
+        print(error_msg)
+        return error_msg
+
 
 if __name__ == "__main__":
     main()
