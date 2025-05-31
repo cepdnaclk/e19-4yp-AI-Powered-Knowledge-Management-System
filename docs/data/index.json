@@ -1,37 +1,37 @@
 {
-    "team": [
-        {
-            "name": "Team Member Name 1",
-            "email": "email@eng.pdn.ac.lk",
-            "eNumber": "E/yy/xxx"
-        },
-        {
-            "name": "Team Member Name 2",
-            "email": "email@eng.pdn.ac.lk",
-            "eNumber": "E/yy/xxx"
-        },
-        {
-            "name": "Team Member Name 3",
-            "email": "email@eng.pdn.ac.lk",
-            "eNumber": "E/yy/xxx"
-        }
-    ],
-    "supervisors": [
-        {
-            "name": "Dr. Supervisor 1",
-            "email": "email@eng.pdn.ac.lk"
-        },
-        {
-            "name": "Dr. Supervisor 2",
-            "email": "email@eng.pdn.ac.lk"
-        }
-    ],
-    "media": [
-        {
-            "type": "youtube",
-            "title": "",
-            "url": "#"
-        }
-    ],
-    "tags": ["Final Year Projects"]
+  "team": [
+    {
+      "name": "R.B.ABEYSINGHE",
+      "email": "e19004@eng.pdn.ac.lk",
+      "eNumber": "E/19/004"
+    },
+    {
+      "name": "E.M.C.Y.B.EKANAYAKE",
+      "email": "e19096@eng.pdn.ac.lk",
+      "eNumber": "E/19/096"
+    },
+    {
+      "name": "E.P.S.G.ELLAWALA",
+      "email": "e19100@eng.pdn.ac.lk",
+      "eNumber": "E/19/100"
+    }
+  ],
+  "supervisors": [
+    {
+      "name": "Dr. Asitha Bandaranayake",
+      "email": "asithab@eng.pdn.ac.lk"
+    },
+    {
+      "name": "Prof Roshan Ragel",
+      "email": "roshanr@eng.pdn.ac.lk"
+    }
+  ],
+  "media": [
+    {
+      "type": "youtube",
+      "title": "",
+      "url": "#"
+    }
+  ],
+  "tags": ["Final Year Projects"]
 }
