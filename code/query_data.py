@@ -7,7 +7,6 @@ import os
 
 from get_embedding_function import get_embedding_function
 
-# Load environment variables
 load_dotenv()
 
 CHROMA_PATH = "chroma"
@@ -33,17 +32,21 @@ def main():
 
 
 def query_rag(query_text: str):
-    # Prepare the DB.
+    #  Loads the Chroma vector database using the embedding function.
     embedding_function = get_embedding_function()
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
     # Search the DB.
+    # Searches for the top 5 most similar chunks to the user's query.
+    # Returns a list of (Document, score) pairs.
     results = db.similarity_search_with_score(query_text, k=5)
     
     if not results:
         print("No relevant documents found in the database.")
         return "No relevant information found."
-
+    
+    # Joins the top 5 documents into a context_text.
+    # Formats it into a prompt using the template.
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query_text)
@@ -61,6 +64,7 @@ def query_rag(query_text: str):
     )
     
     try:
+        # Sends the formatted prompt to the model and gets a response.
         response_text = model.invoke(prompt)
         
         # Extract the content from the response
