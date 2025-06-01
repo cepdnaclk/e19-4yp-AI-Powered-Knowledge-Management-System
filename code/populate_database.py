@@ -25,13 +25,14 @@ def main():
     add_to_chroma(chunks)
 
 def load_documents():
+    # Returns a list of Document objects.
     document_loader = PyPDFDirectoryLoader(DATA_PATH)
     return document_loader.load()
 
 def split_documents(documents: list[Document]):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=800,
-        chunk_overlap=80,
+        chunk_overlap=80, #  Some text from the previous chunk is repeated in the next to keep context.
         length_function=len,
         is_separator_regex=False,
     )
@@ -43,7 +44,7 @@ def add_to_chroma(chunks: list[Document]):
         persist_directory=CHROMA_PATH, embedding_function=get_embedding_function()
     )
 
-    # Calculate Page IDs.
+    # Get chunks with chunk ids.
     chunks_with_ids = calculate_chunk_ids(chunks)
 
     # Add or Update the documents.
@@ -86,7 +87,7 @@ def calculate_chunk_ids(chunks):
         # Calculate the chunk ID.
         chunk_id = f"{current_page_id}:{current_chunk_index}"
         last_page_id = current_page_id
-
+    
         # Add it to the page meta-data.
         chunk.metadata["id"] = chunk_id
 

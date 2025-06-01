@@ -1,5 +1,10 @@
 from query_data import query_rag
-from langchain_community.llms.ollama import Ollama
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
 
 EVAL_PROMPT = """
 Expected Response: {expected_response}
@@ -29,8 +34,20 @@ def query_and_validate(question: str, expected_response: str):
         expected_response=expected_response, actual_response=response_text
     )
 
-    model = Ollama(model="mistral")
-    evaluation_results_str = model.invoke(prompt)
+    model = ChatOpenAI(
+        model="gpt-3.5-turbo",
+        temperature=0,  # Set to 0 for consistent evaluation
+        openai_api_key=os.getenv("OPENAI_API_KEY")
+    )
+    
+    evaluation_results = model.invoke(prompt)
+    
+    # Extract content from the response
+    if hasattr(evaluation_results, 'content'):
+        evaluation_results_str = evaluation_results.content
+    else:
+        evaluation_results_str = str(evaluation_results)
+    
     evaluation_results_str_cleaned = evaluation_results_str.strip().lower()
 
     print(prompt)
