@@ -5,10 +5,12 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 import os
+
+#Functions
 from utils.get_embedding_function import get_embedding_function
 from utils.query_rag import query_rag
 from utils.populate_db import populate_database
-
+from utils.clear_db import clear_chroma_database
 
 # Load environment variables
 load_dotenv()
@@ -147,6 +149,15 @@ def populate_endpoint():
             "message": f"Server error: {str(e)}"
         }), 500
 
+# Clear database endpoint
+@app.route('/api/clear-db', methods=['POST'])
+def clear_db():
+    try:
+        result = clear_chroma_database()
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
 
 if __name__ == '__main__':
     # Check environment variables on startup
@@ -169,12 +180,7 @@ if __name__ == '__main__':
     print("  GET  /api/status    - System status")
     print("  POST /api/query     - Query the RAG system")
     print("  POST /api/populate  - Populate database with PDFs")
-    print("\n💡 Example query:")
-    print("  curl -X POST http://localhost:5000/api/query \\")
-    print("       -H 'Content-Type: application/json' \\")
-    print("       -d '{\"query\": \"What is machine learning?\"}'")
-    print("\n💡 Example populate:")
-    print("  curl -X POST http://localhost:5000/api/populate \\")
+   
     print("       -H 'Content-Type: application/json' \\")
     print("       -d '{\"reset\": true}'")
     print("  (reset: true clears existing database first)")
