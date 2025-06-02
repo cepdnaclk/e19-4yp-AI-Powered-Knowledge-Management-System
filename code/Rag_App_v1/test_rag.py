@@ -33,8 +33,8 @@ def test_ticket_to_ride_rules():
 
 
 def query_and_validate(question: str, expected_response: str):
-    response_text = query_rag(question)
-    prompt = EVAL_PROMPT.format(
+    response_text = query_rag(question) # Call the RAG system to get the response based on the question 
+    prompt = EVAL_PROMPT.format(     # Takes the big template string from EVAL_PROMPT and plugs in
         expected_response=expected_response, actual_response=response_text
     )
 
@@ -44,7 +44,7 @@ def query_and_validate(question: str, expected_response: str):
         openai_api_key=os.getenv("OPENAI_API_KEY")
     )
     
-    evaluation_results = model.invoke(prompt)
+    evaluation_results = model.invoke(prompt) # Sends the prompt (the “Expected vs. Actual?” question) to GPT-3.5 and waits for its answer.
     
     # Extract content from the response
     if hasattr(evaluation_results, 'content'):
