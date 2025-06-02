@@ -113,25 +113,30 @@ Edit the `.env` file and add your OpenAI API key:
 OPENAI_API_KEY=sk-your-actual-api-key-here
 ```
 
-### 6. Populate ChromaDB with PDFs
-
-Place your PDF files in the `data/` folder, then run:
+### 6. Run the Flask server
 
 ```bash
-python populate_database.py
+python app.py
 ```
 
-**Optional:** Add more PDFs to the `data/` folder and run the command again to update the database.
+### 7. Interact with the API using Postman
 
+You can send HTTP POST requests using Postman to check system status,  populate, clear, or query the database.
 
-### 7. Query Your Documents
+**EX :**  Ask a Question❓
 
-Run queries against your document database:
-
+Endpoint:
 ```bash
-python query_data.py "What is the main topic discussed in the documents?"
+POST http://127.0.0.1:5000/api/query
 ```
-
-
-
+Headers:
+```bash
+Content-Type: application/json
+```
+Body:
+```bash
+{
+  "query": "What is this system about?"
+}
+```
 

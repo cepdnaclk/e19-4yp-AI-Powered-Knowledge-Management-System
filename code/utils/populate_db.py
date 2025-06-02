@@ -111,13 +111,19 @@ def populate_database(reset=False):
         chunks = split_documents(documents)
         new_docs_added = add_to_chroma(chunks)
         
+        if new_docs_added > 0:
+            message = "Database populated successfully"
+        else:
+            message = "No new documents were added. All documents already exist in the database."
+
         return {
             "success": True,
-            "message": "Database populated successfully",
+            "message": message,
             "documents_processed": len(documents),
             "chunks_created": len(chunks),
             "new_documents_added": new_docs_added
         }
+
         
     except Exception as e:
         return {
