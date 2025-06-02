@@ -6,6 +6,10 @@ import os
 # Load environment variables
 load_dotenv()
 
+
+# AS for a best practice , write negative and positive test cases for the RAG system.
+
+
 EVAL_PROMPT = """
 Expected Response: {expected_response}
 Actual Response: {actual_response}
@@ -17,7 +21,7 @@ Actual Response: {actual_response}
 def test_monopoly_rules():
     assert query_and_validate(
         question="How much total money does a player start with in Monopoly? (Answer with the number only)",
-        expected_response="$1500",
+        expected_response="$99999",
     )
 
 
@@ -64,3 +68,23 @@ def query_and_validate(question: str, expected_response: str):
         raise ValueError(
             f"Invalid evaluation result. Cannot determine if 'true' or 'false'."
         )
+
+
+if __name__ == "__main__":
+    print("🧪 Running RAG System Tests...\n")
+    
+    try:
+        print("📋 Testing Monopoly Rules...")
+        test_monopoly_rules()
+        print("✅ Monopoly test passed!\n")
+    except Exception as e:
+        print(f"❌ Monopoly test failed: {e}\n")
+    
+    try:
+        print("🚂 Testing Ticket to Ride Rules...")
+        test_ticket_to_ride_rules()
+        print("✅ Ticket to Ride test passed!\n")
+    except Exception as e:
+        print(f"❌ Ticket to Ride test failed: {e}\n")
+    
+    print("🏁 Tests completed!")
