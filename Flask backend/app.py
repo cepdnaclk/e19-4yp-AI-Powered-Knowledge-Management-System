@@ -6,7 +6,7 @@ from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 import os
 
-#Functions
+# Functions
 from utils.get_embedding_function import get_embedding_function
 from utils.query_rag import query_rag
 from utils.populate_db import populate_database
@@ -16,13 +16,13 @@ from utils.clear_db import clear_chroma_database
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for React frontend
+CORS(app)  #  CORS for React frontend
 
 CHROMA_PATH = "chroma"
 
 
 # Health check endpoint 
-@app.route('/', methods=['GET']) # http://<your-server-host>:5000/
+@app.route('/', methods=['GET']) 
 def health_check():
       
     return jsonify({   # Constructs a JSON response containing
@@ -36,7 +36,7 @@ def health_check():
         }
     })
 
-# Check if the database and embeddings are properly configured
+
 @app.route('/api/status', methods=['GET']) 
 def status_endpoint():
      
@@ -160,7 +160,7 @@ def clear_db():
 
 
 if __name__ == '__main__':
-    # Check environment variables on startup
+    
     required_env_vars = ['OPENAI_API_KEY']
     missing_vars = [var for var in required_env_vars if not os.getenv(var)]
     
