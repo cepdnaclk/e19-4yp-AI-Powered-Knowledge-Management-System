@@ -69,7 +69,7 @@ Our approach leverages RAG architecture to combine the benefits of large languag
 - OpenAI API for language models
 - Vector database (Chroma)
 - Flask/Python for backend services
-- React for frontend interface
+- NextJS for frontend interface
 
 
 ## Setup Instructions
