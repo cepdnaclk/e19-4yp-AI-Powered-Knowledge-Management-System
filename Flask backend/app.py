@@ -11,6 +11,8 @@ from utils.get_embedding_function import get_embedding_function
 from utils.query_rag import query_rag
 from utils.populate_db import populate_database
 from utils.clear_db import clear_chroma_database
+import utils.test_rag as test_rag
+
 
 # Load environment variables
 load_dotenv()
@@ -157,6 +159,45 @@ def clear_db():
         return jsonify(result), 200
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
+
+
+@app.route('/api/test-rag', methods=['GET'])
+def run_rag_tests():
+    try:
+        results = []
+
+        # Run each test and collect pass/fail
+        for test_func, name in [
+            (test_rag.test_monopoly_rules, "Monopoly Rules Test"),
+            (test_rag.test_ticket_to_ride_rules, "Ticket to Ride Rules Test"),
+        ]:
+            try:
+                passed = test_func()
+                results.append({
+                    "test_name": name,
+                    "status": "passed" if passed else "failed"
+                })
+            except Exception as e:
+                results.append({
+                    "test_name": name,
+                    "status": "error",
+                    "error": str(e)
+                })
+
+        return jsonify({
+            "success": True,
+            "results": results
+        }), 200
+
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Test execution failed: {str(e)}"
+        }), 500
+
+
+
 
 
 if __name__ == '__main__':

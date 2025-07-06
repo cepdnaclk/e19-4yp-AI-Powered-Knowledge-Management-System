@@ -32,7 +32,7 @@ def add_to_chroma(chunks: list[Document]):
     chunks_with_ids = calculate_chunk_ids(chunks)
     
     # Add or Update the documents.
-    existing_items = db.get(include=[])  # IDs are always included by default
+    existing_items = db.get(include=[])    # IDs are always included by default
     existing_ids = set(existing_items["ids"])
     print(f"Number of existing documents in DB: {len(existing_ids)}")
     
