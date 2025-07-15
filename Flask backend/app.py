@@ -12,6 +12,7 @@ from utils.query_rag import query_rag
 from utils.populate_db import populate_database
 from utils.clear_db import clear_chroma_database
 import utils.test_rag as test_rag
+from routes.user_routes import bp as profile_bp
 
 
 # Load environment variables
@@ -111,7 +112,8 @@ def query_endpoint():
             }), 400
         
         # Process the query using imported query_rag function
-        result = query_rag(query_text)
+        #result = query_rag(query_text)
+        result = query_rag(query_text=data['query'], user_id=data['user_id'])
         
         # Return appropriate status code
         status_code = 200 if result['success'] else 500
@@ -198,6 +200,7 @@ def run_rag_tests():
 
 
 
+app.register_blueprint(profile_bp)
 
 
 if __name__ == '__main__':
