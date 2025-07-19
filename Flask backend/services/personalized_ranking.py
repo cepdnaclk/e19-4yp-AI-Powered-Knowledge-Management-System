@@ -2,6 +2,13 @@ from typing import List, Tuple
 from langchain.docstore.document import Document
 from models.user_profile import UserProfile
 
+# Ranks documents based on how well they match the user’s profile using three factors  and return the documents
+
+# Similarity Score (ALPHA)
+# Role Match (BETA)
+# Interest Overlap (GAMMA)
+
+
 # tunable weights
 ALPHA = 0.6  # similarity
 BETA = 0.3   # role match

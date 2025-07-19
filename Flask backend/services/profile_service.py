@@ -9,13 +9,14 @@ from sqlalchemy import (
     text,
 )
 from sqlalchemy.orm import declarative_base, sessionmaker
-
 from models.user_profile import UserProfile
 
-DB_URL = "sqlite:///profiles.db"
+DB_URL = "sqlite:///profiles.db"  # location for datasbase profile.
 Base = declarative_base()
-_engine = create_engine(DB_URL, echo=False, future=True)
+_engine = create_engine(DB_URL, echo=False, future=True)  # using SQLite — a lightweight, file-based database management system.
 SessionLocal = sessionmaker(bind=_engine, expire_on_commit=False)
+
+# Provides CRUD operations for managing UserProfile data in a SQLite database using SQLAlchemy
 
 
 class _ProfileRow(Base):
@@ -29,6 +30,7 @@ class _ProfileRow(Base):
 
 
 # create table on first import
+#This creates the table based on the _ProfileRow class (which is an ORM model) if it doesn’t already exist.
 Base.metadata.create_all(_engine)
 
 
@@ -38,7 +40,7 @@ def get(user_id: str) -> Optional[UserProfile]:
         row = db.get(_ProfileRow, user_id)
         return UserProfile.from_row(row) if row else None
 
-
+#If the user exists → update role/interests, Else → create a new entry, Commits changes and returns a UserProfile.
 def create_or_update(
     user_id: str,
     role: str,

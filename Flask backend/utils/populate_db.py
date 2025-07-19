@@ -1,14 +1,23 @@
 """
 populate_database.py  •  v3
 —————————————————————————————————
-• Loads every PDF in data/
-• Splits into ~800-token chunks
-• Uses GPT-3.5-turbo to infer:
-      - audience role(s)  ("developer", "manager", …)
-      - topic keyword(s)  ("AI", "Python", …)
-  for each chunk’s *content* (not filename)
-• Stores tags in chunk.metadata so the personalised
-  filter & ranking downstream can use them.
+Loads all PDF documents from the data/ folder.
+Splits each PDF into small chunks (~800 characters).
+Uses GPT-3.5-turbo to:
+Classify each chunk's audience (e.g., developer, manager)
+Identify topics (e.g., AI, Python)
+Stores each chunk (with embeddings + metadata) in Chroma, a vector database.
+Optionally clears the database if reset=True.
+
+In here meta data is like 
+{
+  "source": "data/sample.pdf",
+  "chunk_id": "data/sample.pdf:3:2",
+  "audience": "developer,manager",
+  "topics": "authentication,api"
+}
+
+
 """
 
 import os, json, re, shutil
@@ -29,9 +38,9 @@ load_dotenv()  # make sure OPENAI_API_KEY is available
 CHROMA_PATH = "chroma"
 DATA_PATH   = "data"
 
-# ------------------------------------------------------------------ #
+
 # 1.  LLM & tag vocabulary
-# ------------------------------------------------------------------ #
+
 LLM = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.0)
 
 ROLE_SET  = [
@@ -71,9 +80,9 @@ def classify_chunk(text: str) -> dict:
     except Exception:
         return {"audience": ["general"], "topics": []}
 
-# ------------------------------------------------------------------ #
+
 # 2.  ETL helpers (mostly unchanged)
-# ------------------------------------------------------------------ #
+
 def load_documents() -> List[Document]:
     return PyPDFDirectoryLoader(DATA_PATH).load()
 
@@ -104,6 +113,9 @@ def tag_chunks(chunks: list[Document]) -> list[Document]:
         c.metadata["topics"]   = ",".join(tags["topics"])     # 'AI,Python'
     return chunks
 
+# Stores the chunks in a Chroma vector database
+# Prevents duplication by checking if chunk ID already exists.
+
 def add_to_chroma(chunks: List[Document]) -> int:
     db = Chroma(persist_directory=CHROMA_PATH,
                 embedding_function=get_embedding_function())
@@ -123,9 +135,9 @@ def add_to_chroma(chunks: List[Document]) -> int:
     print("✅ Documents added and persisted automatically")
     return len(new_chunks)
 
-# ------------------------------------------------------------------ #
+
 # 3.  CLI wrapper (unchanged API)
-# ------------------------------------------------------------------ #
+
 def clear_database():
     if os.path.exists(CHROMA_PATH):
         shutil.rmtree(CHROMA_PATH)

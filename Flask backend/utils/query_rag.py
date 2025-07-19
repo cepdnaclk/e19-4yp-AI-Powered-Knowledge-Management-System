@@ -83,6 +83,17 @@
 #         }
 
 
+"""
+This script:
+
+Loads the persisted Chroma vector database (chroma/)
+Takes a question
+Retrieves relevant document chunks using embeddings
+Feeds them + the question to the OpenAI model
+Returns the generated answer
+"""
+
+
 #personlize QA
 from typing import List
 from datetime import datetime
@@ -112,7 +123,7 @@ Answer the question **only** using the following context:
 {question}
 """.strip()
 
-
+# Builds the final prompt using the user's role & interests from their profile.
 def _build_prompt(
     profile_role: str,
     profile_interests: List[str],
@@ -135,7 +146,10 @@ def query_rag(query_text: str, user_id: str) -> dict:
     Main entry point for Flask `/api/query`.
     """
     try:
-        profile = get_profile(user_id)
+
+        # Loads the profile (UserProfile) of the user by their user_id.
+        # Includes their role and interests.
+        profile = get_profile(user_id) 
         if not profile:
             return {
                 "success": False,
@@ -149,7 +163,7 @@ def query_rag(query_text: str, user_id: str) -> dict:
         db = Chroma(
             persist_directory=CHROMA_PATH, embedding_function=embedding_fn
         )
-
+        # Define Chroma filter
         chroma_filter = {
             "$or": [
                 {"audience": {"$eq": profile.role}},
@@ -158,9 +172,10 @@ def query_rag(query_text: str, user_id: str) -> dict:
         }
 
         # first pass – wider net
+        # Retrieves top 20 similar documents based on embeddings and the filter.
         raw_results = db.similarity_search_with_score(
             query_text, k=20, filter=chroma_filter
-        )  # -> List[(Document, score)]
+        )  #  Returns a list of tuples: (Document, similarity_score).
 
         if not raw_results:
             return {
@@ -171,8 +186,11 @@ def query_rag(query_text: str, user_id: str) -> dict:
             }
 
         # 2) personalized re-ranking
+        #  Uses a custom logic (in rank_chunks) to re-rank based on user preferences.
+        # More personalized than just cosine similarity.
         top_ranked = rank_chunks(raw_results, profile)
-
+        
+        # Merges the content of top documents into a single context for the prompt.
         context_text = "\n\n---\n\n".join(
             [doc.page_content for doc, _ in top_ranked]
         )
@@ -190,7 +208,8 @@ def query_rag(query_text: str, user_id: str) -> dict:
         )
         resp = llm.invoke(prompt)
         answer = resp.content if hasattr(resp, "content") else str(resp)
-
+        
+        # Gathers the document IDs (or "Unknown") from metadata to show sources used.
         sources = [doc.metadata.get("id", "Unknown") for doc, _ in top_ranked]
 
         return {
