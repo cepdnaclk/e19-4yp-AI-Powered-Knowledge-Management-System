@@ -5,7 +5,7 @@ POST http://127.0.0.1:5000/api/profile
 ```
 
 {"user_id":"dev-42","role":"general","interests":["LLM"]}
-Headers:
+
 
 ```bash
 http://127.0.0.1:5000/api/query
