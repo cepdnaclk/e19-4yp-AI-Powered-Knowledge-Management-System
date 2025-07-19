@@ -39,7 +39,7 @@ def health_check():
         }
     })
 
-
+# System Readiness Check
 @app.route('/api/status', methods=['GET']) 
 def status_endpoint():
      
@@ -163,7 +163,6 @@ def clear_db():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-
 @app.route('/api/test-rag', methods=['GET'])
 def run_rag_tests():
     try:
@@ -199,7 +198,7 @@ def run_rag_tests():
         }), 500
 
 
-
+# This line registers a Blueprint with  Flask application, enabling the routes defined in another file  to be used in the main app.
 app.register_blueprint(profile_bp)
 
 

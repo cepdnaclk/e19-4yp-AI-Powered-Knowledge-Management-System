@@ -4,6 +4,13 @@ from datetime import datetime
 from typing import List
 
 
+
+"""
+This file defines a UserProfile data class that represents a user’s profile in memory (not directly tied to a database ORM model like SQLAlchemy,
+ but can be mapped from one using .from_row()).
+"""
+
+
 @dataclass
 class UserProfile:
     """
