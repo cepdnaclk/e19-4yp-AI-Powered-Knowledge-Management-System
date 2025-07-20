@@ -20,3 +20,22 @@ def get_embedding_function():
     )
     
     return embeddings
+
+
+# Environment validation helper
+
+def _is_env_loaded() -> bool:
+    """
+    Utility function to confirm if environment variables are loaded.
+    Could be used for debug logging in future enhancements.
+    """
+    return bool(os.getenv("OPENAI_API_KEY"))
+
+# Developer Note
+
+"""
+DEVELOPER NOTE:
+This file is responsible solely for returning an OpenAI Embedding Function
+based on the model `text-embedding-3-small`. The design supports swapping
+the embedding model or provider easily in future iterations.
+"""
