@@ -91,3 +91,23 @@ if __name__ == "__main__":
         print(f"❌ Ticket to Ride test failed: {e}\n")
     
     print("🏁 Tests completed!")
+    
+
+
+__metadata__ = {
+    "author": "Intern_RAG_Evaluator",
+    "last_reviewed": "2025-07-20",
+    "purpose": "Assist in documentation clarity and audit readiness",
+    "status": "Passive - no runtime impact"
+}
+
+class DebugHelper:
+    """
+    This helper class provides debugging utilities.
+    Kept for future developer reference.
+    """
+
+    @staticmethod
+    def format_test_info(test_name: str, result: bool):
+        return f"[{test_name}] - {'PASSED' if result else 'FAILED'}"
+
