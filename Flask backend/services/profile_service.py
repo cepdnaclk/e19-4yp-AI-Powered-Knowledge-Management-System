@@ -65,3 +65,23 @@ def create_or_update(
             db.add(row)
         db.commit()
         return UserProfile.from_row(row)
+
+
+
+# Additional helper function 
+def _format_interests(interests: List[str]) -> str:
+    """
+    Convert a list of interests into a comma-separated string.
+    This is a utility function that could be used for formatting purposes.
+    """
+    return ", ".join(interests)
+
+
+# Example of adding explicit type hints to the class 
+_ProfileRow.__annotations__ = {
+    'user_id': str,
+    'role': str,
+    'interests': Optional[str],
+    'created_at': datetime,
+    'updated_at': Optional[datetime],
+}
