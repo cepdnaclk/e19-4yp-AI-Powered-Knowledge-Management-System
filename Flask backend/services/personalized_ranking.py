@@ -49,3 +49,17 @@ def rank(
 
     scored.sort(key=lambda tup: tup[1], reverse=True)
     return scored[:top_k]
+
+
+# 🛠️ Debug Helper
+
+def _debug_scores(candidates: List[Tuple[Document, float]], profile_role: str) -> None:
+    """
+    Prints detailed scoring breakdown for each candidate document.
+    Useful during development; currently not called anywhere.
+    """
+    for doc, sim in candidates:
+        meta = doc.metadata or {}
+        role_score = 1.0 if profile_role in meta.get("audience", []) else 0.0
+        print(f"Doc ID: {meta.get('id', 'Unknown')} | Sim: {sim:.3f} | Role Match: {role_score}")
+
