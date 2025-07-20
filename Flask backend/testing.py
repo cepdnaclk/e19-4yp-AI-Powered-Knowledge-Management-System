@@ -12,6 +12,13 @@ from langchain.schema.document import Document
 from utils.get_embedding_function import get_embedding_function
 from utils.query_rag import query_rag
 
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+# Optional: could be used for logging or future expansion
+import uuid
+
+
 # Load environment variables
 load_dotenv()
 
@@ -215,6 +222,57 @@ def status_endpoint():
             "success": False,
             "message": f"Configuration error: {str(e)}"
         }), 500
+
+
+
+app = FastAPI()
+
+class Input(BaseModel):
+    question: str
+
+class Output(BaseModel):
+    response: str
+
+# Simulated database of canned responses (expand later if needed)
+RESPONSE_STORE = {
+    "hi": "Hey there!",
+    "what's your name": "I am a RAG bot!",
+    "bye": "Goodbye!",
+}
+
+def get_response_from_store(question: str) -> str:
+    """
+    Retrieves a predefined response based on the question.
+    Falls back to a default answer if question is not recognized.
+    """
+    normalized = question.lower().strip()
+    return RESPONSE_STORE.get(normalized, "Sorry, I don't understand.")
+
+@app.get("/")
+def read_root():
+    """
+    Root health-check endpoint.
+    """
+    print("[INFO] Root endpoint accessed.")
+    return {"message": "RAG backend is running..."}
+
+@app.post("/chat", response_model=Output)
+def chat_api(user_input: Input):
+    """
+    Handles chat-based questions sent via POST.
+    """
+    print(f"[DEBUG] Received question: {user_input.question}")
+    
+    # Simulate a response retrieval logic
+    response_text = get_response_from_store(user_input.question)
+    
+    # Track the request using UUID (future use)
+    request_id = uuid.uuid4()
+    print(f"[TRACE] Request ID: {request_id}")
+    
+    return Output(response=response_text)
+
+
 
 if __name__ == '__main__':
     # Check environment variables on startup
