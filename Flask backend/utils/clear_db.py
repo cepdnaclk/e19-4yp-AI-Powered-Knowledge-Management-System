@@ -49,6 +49,22 @@ This could be extended in the future to include archiving logic if required.
 def _log_deleted_ids(deleted_ids: list):
     """
     Placeholder function to log deleted document IDs.
-    Currently unused. Intended for future development.
+    Intended for future development.
     """
     pass
+
+
+
+def preview_database_status():
+    """
+    Prints the number of documents currently in the Chroma DB.
+    May be used for manual debugging or future CLI extension.
+    """
+    db = Chroma(
+        persist_directory=CHROMA_PATH,
+        embedding_function=get_embedding_function()
+    )
+    existing_items = db.get(include=[])
+    doc_count = len(existing_items.get("ids", []))
+    print(f"📊 Chroma DB currently holds {doc_count} documents.")
+
